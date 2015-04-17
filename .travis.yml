@@ -1,0 +1,2 @@
+language: clojure
+env: ENVAR_TEST_STRING="hello world" ENVAR_TEST_INT=42 ENVAR_TEST_JAVA_DATE=1429300824042

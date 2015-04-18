@@ -34,18 +34,7 @@ All of the above work with a single argument (key) or two arguments (key default
 (envar-int "ENVAR_TEST_INT" 42) ; returns 42 if ENVAR_TEST_INT not found
 ```
 
-There is also an "envar" function which enables you to provide your own parser. The envar function take a key and a parser function (which accepts a single argument and returns a value)
-
-```
-;[var-key fn-envar-parser]
-(envar "ENVAR_TEST_JAVA_DATE" #(new java.util.Date (java.lang.Long/valueOf %))) 
-
-;[var-key fn-envar-parser var-default]
-(envar "ENVAR_TEST_JAVA_DATE" #(new java.util.Date (java.lang.Long/valueOf %)) 1429300824042)
-
-;[var-key fn-envar-parser var-default fn-default-parser]
-(envar "ENVAR_THAT_DOES_NOT_EXIST" #(java.lang.Double/parseDouble x) 42 double)
-```
+There is also an "envar" function which enables you to provide your own parser. The envar function take a key and a parser function (which accepts a single argument and returns a value) - see [Providing your own parser](#providing-your-own-parser)
 
 
 ### REPL

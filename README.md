@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/alexanderjamesking/envar.svg?branch=master)](https://travis-ci.org/alexanderjamesking/envar)
 
+[![Clojars Project](http://clojars.org/envar/latest-version.svg)](http://clojars.org/envar)
+
 A minimal library for deadling with Environment Variables in Clojure as per [The Twelve Factor App - Config](http://12factor.net/config).
 
 The Clojure config library [environ](https://github.com/weavejester/environ) is another option for dealing with config, envar differs in the following ways:

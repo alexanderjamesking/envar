@@ -2,6 +2,15 @@
 
 [![Build Status](https://travis-ci.org/alexanderjamesking/envar.svg?branch=master)](https://travis-ci.org/alexanderjamesking/envar)
 
+A minimal library for deadling with Environment Variables in Clojure as per [The Twelve Factor App - Config](http://12factor.net/config).
+
+The Clojure config library [environ](https://github.com/weavejester/environ) is another option for dealing with config, envar differs in the following ways:
+- Supports Environment Variables only (no java.properties etc)
+- Throws exception by default if the environment variable cannot be found
+- Converts value to expected type
+
+If you only intend to use Environment Variables and you care about the type returned then envar may be suitable, if not then you should look at environ.
+
 ## Running the tests
 
 ```bash

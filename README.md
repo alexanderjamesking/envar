@@ -13,6 +13,41 @@ lein test
 
 Set up a lein project and add the envar dependency.
 
+The following functions are currently provided for basic Clojure types:
+
+| function      | type                 |
+| ------------- | -------------------- |
+| envar-str     | java.lang.String     |
+| envar-num     | java.lang.Number     |
+| envar-short   | java.lang.Short      |
+| envar-bigint  | clojure.lang.BigInt  |
+| envar-int     | java.lang.Integer    |
+| envar-long    | java.lang.Long       |
+| envar-bigdec  | java.math.BigDecimal |
+| envar-double  | java.lang.Double     |
+| envar-float   | java.lang.Float      |
+
+All of the above work with a single argument (key) or two arguments (key default) 
+
+```clojure
+(envar-int "ENVAR_TEST_INT") ; throws exception if ENVAR_TEST_INT not found
+(envar-int "ENVAR_TEST_INT" 42) ; returns 42 if ENVAR_TEST_INT not found
+```
+
+There is also an "envar" function which enables you to provide your own parser. The envar function take a key and a parser function (which accepts a single argument and returns a value)
+
+```
+;[var-key fn-envar-parser]
+(envar "ENVAR_TEST_JAVA_DATE" #(new java.util.Date (java.lang.Long/valueOf %))) 
+
+;[var-key fn-envar-parser var-default]
+(envar "ENVAR_TEST_JAVA_DATE" #(new java.util.Date (java.lang.Long/valueOf %)) 1429300824042)
+
+;[var-key fn-envar-parser var-default fn-default-parser]
+(envar "ENVAR_THAT_DOES_NOT_EXIST" #(java.lang.Double/parseDouble x) 42 double)
+```
+
+
 ### REPL
 
 Set environment variables:
@@ -77,6 +112,10 @@ In the REPL:
 (defn default-parser [x] (double x))
 
 (envar "ENVAR_THAT_DOES_NOT_EXIST" env-var-parser 42 default-parser)
+
+; or pass in the double function directly
+(envar "ENVAR_THAT_DOES_NOT_EXIST" env-var-parser 42 double)
+
 ; 42.0
 
 ; if the default is not provided an exception will be thrown as the env-var-parser is used
@@ -84,18 +123,6 @@ In the REPL:
 ; ClassCastException java.lang.Long cannot be cast to java.lang.String  user/env-var-parser 
 ; (form-init2356759060892620352.clj:1)
 ```
-
-| function      | type                 |
-| ------------- | -------------------- |
-| envar-str     | java.lang.String     |
-| envar-num     | java.lang.Number     |
-| envar-short   | java.lang.Short      |
-| envar-bigint  | clojure.lang.BigInt  |
-| envar-int     | java.lang.Integer    | 
-| envar-long    | java.lang.Long       |
-| envar-bigdec  | java.math.BigDecimal | 
-| envar-double  | java.lang.Double     |  
-| envar-float   | java.lang.Float      |
 
 ## License
 

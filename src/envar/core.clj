@@ -4,10 +4,6 @@
   (throw (Exception. (str "Missing required environment variable " var-key))))
 
 (defn envar 
-  ([var-key] 
-    (if-let [var-value (System/getenv var-key)] 
-      var-value 
-      (throw-exception var-key)))
   ([var-key fn-envar-parser]
     (if-let [var-value (System/getenv var-key)]
       (fn-envar-parser var-value) 

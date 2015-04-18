@@ -11,12 +11,6 @@ The Clojure config library [environ](https://github.com/weavejester/environ) is 
 
 If you only intend to use Environment Variables and you care about the type returned then envar may be suitable, if not then you should look at environ.
 
-## Running the tests
-
-```bash
-source ./set-test-environment-variables.sh
-lein test
-```
 
 ## Usage
 
@@ -119,6 +113,13 @@ In the REPL:
 (envar "ENVAR_THAT_DOES_NOT_EXIST" env-var-parser 42)
 ; ClassCastException java.lang.Long cannot be cast to java.lang.String  user/env-var-parser 
 ; (form-init2356759060892620352.clj:1)
+```
+
+## Running the tests
+
+```bash
+source ./set-test-environment-variables.sh
+lein test
 ```
 
 ## License

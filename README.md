@@ -57,9 +57,37 @@ In the REPL:
 ; 42.0
 
 ```
+### Providing your own parser
+
+```clojure
+; providing your own parser to convert to a Java Date as inline function
+(envar "ENVAR_TEST_JAVA_DATE" #(new java.util.Date (java.lang.Long/valueOf %)))
+; returns java.util.Date 
+; #inst "2015-04-17T20:00:24.042-00:00"
+
+(defn date-parser [x] (new java.util.Date (java.lang.Long/valueOf x)))
+
+; with a standard function and a default value
+(envar "ENVAR_THAT_DOES_NOT_EXIST" date-parser 1429300824042)
+
+; the parser will be run against both inputs (environment variable or default value)
+; in some cases you will need to provide a different parser for the default value
+
+(defn env-var-parser [x] (java.lang.Double/parseDouble x))
+(defn default-parser [x] (double x))
+
+(envar "ENVAR_THAT_DOES_NOT_EXIST" env-var-parser 42 default-parser)
+; 42.0
+
+; if the default is not provided an exception will be thrown as the env-var-parser is used
+(envar "ENVAR_THAT_DOES_NOT_EXIST" env-var-parser 42)
+; ClassCastException java.lang.Long cannot be cast to java.lang.String  user/env-var-parser 
+; (form-init2356759060892620352.clj:1)
+```
 
 | function      | type                 |
 | ------------- | -------------------- |
+| envar-str     | java.lang.String     |
 | envar-num     | java.lang.Number     |
 | envar-short   | java.lang.Short      |
 | envar-bigint  | clojure.lang.BigInt  |
@@ -67,8 +95,7 @@ In the REPL:
 | envar-long    | java.lang.Long       |
 | envar-bigdec  | java.math.BigDecimal | 
 | envar-double  | java.lang.Double     |  
-| envar-float   | java.lang.Float      | 
-
+| envar-float   | java.lang.Float      |
 
 ## License
 

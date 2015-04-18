@@ -34,7 +34,7 @@ All of the above work with a single argument (key) or two arguments (key default
 (envar-int "ENVAR_TEST_INT" 42) ; returns 42 if ENVAR_TEST_INT not found
 ```
 
-There is also an "envar" function which enables you to provide your own parser. The envar function take a key and a parser function (which accepts a single argument and returns a value) - see [Providing your own parser](#providing-your-own-parser)
+There is also an "envar" function which enables you to provide your own parser. The envar function take a key and a parser function (which accepts a single argument and returns a value), see [Providing your own parser](#providing-your-own-parser) for examples.
 
 
 ### REPL
@@ -104,7 +104,6 @@ In the REPL:
 
 ; or pass in the double function directly
 (envar "ENVAR_THAT_DOES_NOT_EXIST" env-var-parser 42 double)
-
 ; 42.0
 
 ; if the default is not provided an exception will be thrown as the env-var-parser is used
